@@ -4,19 +4,12 @@ import Server from "./objects/server.js";
 import ServerList from "./objects/serverList.js";
 
 var chefs = new ChefList([new Chef("요리사1"), new Chef("요리사2")]);
-var servers = new ServerList([
-  new Server("직원1", 1500),
-  new Server("직원2", 3000),
-]);
+var servers = new ServerList([new Server("직원1", 1500), new Server("직원2", 3000)]);
 
 function renderOrder(menu) {
   var orderId = crypto.randomUUID();
 
-  Widget.get("orderUl").append(
-    Widget.li(`${orderId}`).append(
-      Widget.span(`${menu.name}-${orderId}`, { textContent: menu.name })
-    )
-  );
+  Widget.get("orderUl").append(Widget.li(`${orderId}`).append(Widget.span(`${menu.name}-${orderId}`, { textContent: menu.name })));
 
   return orderId;
 }
@@ -29,6 +22,11 @@ function renderCooking(orderId, chef) {
       })
     )
   );
+}
+
+function renderCooked(orderId) {
+  Widget.get("cookedUl").append(Widget.get(orderId));
+  Widget.get(`info-${orderId}`).updateContent(`(server를 찾는중..)`);
 }
 
 function renderServing(orderId, server) {
@@ -49,7 +47,9 @@ export function run(menu) {
     .findChefAsync()
     .then(function (chef) {
       renderCooking(orderId, chef);
-      return chef.cookAsync(menu);
+      return chef.cookAsync(menu, function () {
+        renderCooked(orderId);
+      });
     })
     .then(function () {
       return servers.findServerAsync();

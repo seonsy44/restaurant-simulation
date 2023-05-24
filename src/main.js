@@ -22,9 +22,11 @@ function render() {
     )
     .append(Widget.h3("orderH3", { textContent: "주문" }))
     .append(Widget.ul("orderUl"))
-    .append(Widget.h3("cookingH3", { textContent: "요리" }))
+    .append(Widget.h3("cookingH3", { textContent: "요리중" }))
     .append(Widget.ul("cookingUl"))
-    .append(Widget.h3("servingH3", { textContent: "서빙" }))
+    .append(Widget.h3("cookedH3", { textContent: "요리대기" }))
+    .append(Widget.ul("cookedUl"))
+    .append(Widget.h3("servingH3", { textContent: "서빙중" }))
     .append(Widget.ul("servingUl"));
 
   document.body.append(Widget.get("fragment").getEl());
