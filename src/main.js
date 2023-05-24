@@ -1,8 +1,25 @@
+import { run } from "./simulation.js";
+import Menu from "./objects/menu.js";
+
 function render() {
   Widget.fragment("fragment")
     .append(Widget.h1("title", { textContent: "Restaurant" }))
-    .append(Widget.button("sundaeBtn", { textContent: "순댓국" }))
-    .append(Widget.button("haejangBtn", { textContent: "해장국" }))
+    .append(
+      Widget.button("sundaeBtn", {
+        textContent: "순댓국",
+        onClick: function () {
+          run(new Menu("순댓국", 2000));
+        },
+      })
+    )
+    .append(
+      Widget.button("haejangBtn", {
+        textContent: "해장국",
+        onClick: function () {
+          run(new Menu("해장국", 3000));
+        },
+      })
+    )
     .append(Widget.h3("orderH3", { textContent: "주문" }))
     .append(Widget.ul("orderUl"))
     .append(Widget.h3("cookingH3", { textContent: "요리" }))
