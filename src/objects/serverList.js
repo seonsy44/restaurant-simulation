@@ -2,6 +2,14 @@ function ServerList(list) {
   this.servers = list;
 }
 
+ServerList.prototype.findServerAsync = function () {
+  return new Promise(
+    function (resolve) {
+      setInterval(_findServer(this.servers, resolve), 100);
+    }.bind(this)
+  );
+};
+
 function _findServer(servers, resolve) {
   return function () {
     servers.forEach(function (server) {
@@ -9,13 +17,5 @@ function _findServer(servers, resolve) {
     });
   };
 }
-
-ServerList.prototype.findServerAsync = function () {
-  return new Promise(
-    function (resolve) {
-      setInterval(_findServer(this.servers, resolve).bind(this), 100);
-    }.bind(this)
-  );
-};
 
 export default ServerList;

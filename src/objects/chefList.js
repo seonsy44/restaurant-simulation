@@ -2,6 +2,14 @@ function ChefList(list) {
   this.chefs = list;
 }
 
+ChefList.prototype.findChefAsync = function findChef() {
+  return new Promise(
+    function (resolve) {
+      setInterval(_findChef(this.chefs, resolve), 100);
+    }.bind(this)
+  );
+};
+
 function _findChef(chefs, resolve) {
   return function () {
     chefs.forEach(function (chef) {
@@ -9,13 +17,5 @@ function _findChef(chefs, resolve) {
     });
   };
 }
-
-ChefList.prototype.findChefAsync = function findChef() {
-  return new Promise(
-    function (resolve) {
-      setInterval(_findChef(this.chefs, resolve).bind(this), 100);
-    }.bind(this)
-  );
-};
 
 export default ChefList;
