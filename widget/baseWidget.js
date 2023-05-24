@@ -11,9 +11,9 @@ export function widget(_createControl) {
       return getControl(id);
     };
 
-    control.remove = function () {
-      this.getEl.remove();
-      delControl(menuId);
+    control.remove = function (id) {
+      this.getEl().remove();
+      delControl(id);
     };
 
     addControl(control.id, control);

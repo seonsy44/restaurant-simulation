@@ -9,6 +9,9 @@ function _createSpan(id, option) {
     getEl: function () {
       return el;
     },
+    updateContent: function (content) {
+      el.textContent = content;
+    },
   };
 }
 
