@@ -1,4 +1,4 @@
-import { addControl, getControl, hasControl } from "./core.js";
+import { addControl, delControl, getControl, hasControl } from "./core.js";
 
 export function widget(_createControl) {
   var createControl = function (id, option) {
@@ -9,6 +9,11 @@ export function widget(_createControl) {
     control.append = function (childControl) {
       this.getEl().append(childControl.getEl());
       return getControl(id);
+    };
+
+    control.remove = function () {
+      this.getEl.remove();
+      delControl(menuId);
     };
 
     addControl(control.id, control);

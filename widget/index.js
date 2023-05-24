@@ -16,5 +16,4 @@ window.Widget = {
   h3: createH3,
   span: createSpan,
   get: getControl,
-  del: delControl,
 };
