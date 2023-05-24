@@ -1,16 +1,12 @@
-import { Menu } from "./objects/index.js";
+import { Order } from "./objects/index.js";
 import { run } from "./simulation.js";
 
-export function renderOrder(menu) {
-  var orderId = crypto.randomUUID();
-
+export function renderOrder(order) {
   Widget.get("orderUl").append(
-    Widget.li(`${orderId}`).append(
-      Widget.span(`${menu.name}-${orderId}`, { textContent: menu.name })
+    Widget.li(`${order.id}`).append(
+      Widget.span(`${order.name}-${order.id}`, { textContent: order.name })
     )
   );
-
-  return orderId;
 }
 
 export function renderCooking(orderId, chef) {
@@ -33,14 +29,15 @@ export function renderServing(orderId, server) {
   Widget.get(`info-${orderId}`).updateContent(`(${server.name})`);
 }
 
-export function removeOrder(orderId, menu) {
-  Widget.get(orderId).remove(orderId);
-  Widget.get(`${menu.name}-${orderId}`).remove(orderId);
-  Widget.get(`info-${orderId}`).remove(orderId);
+export function removeOrder(order) {
+  Widget.get(order.id).remove(order.id);
+  Widget.get(`${order.name}-${order.id}`).remove(order.id);
+  Widget.get(`info-${order.id}`).remove(order.id);
 }
 
 export function handleOrderBtnClick(menu, second) {
   return function () {
-    run(new Menu(menu, second));
+    var orderId = crypto.randomUUID();
+    run(new Order(orderId, menu, second));
   };
 }
