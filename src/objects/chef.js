@@ -17,17 +17,18 @@ Chef.prototype.cookAsync = function (order, onCompleted) {
   this.status = COOKING;
   return new Promise(
     function (resolve) {
-      setTimeout(_cook(onCompleted, resolve).bind(this), order.time);
+      this.onCompleted = onCompleted;
+      this.resolve = resolve;
+
+      setTimeout(_completeCook.bind(this), order.time);
     }.bind(this)
   );
 };
 
-function _cook(onCompleted, resolve) {
-  return function () {
-    this.status = READY;
-    onCompleted();
-    resolve();
-  };
+function _completeCook() {
+  this.status = READY;
+  this.onCompleted();
+  this.resolve();
 }
 
 export default Chef;

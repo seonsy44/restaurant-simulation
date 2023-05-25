@@ -18,16 +18,16 @@ Server.prototype.serveAsync = function () {
   this.status = SERVING;
   return new Promise(
     function (resolve) {
-      setTimeout(_serve(resolve).bind(this), this.time);
+      this.resolve = resolve;
+
+      setTimeout(_completeServe.bind(this), this.time);
     }.bind(this)
   );
 };
 
-function _serve(resolve) {
-  return function () {
-    this.status = READY;
-    resolve();
-  };
+function _completeServe() {
+  this.status = READY;
+  this.resolve();
 }
 
 export default Server;
