@@ -11,11 +11,10 @@ export function run(order) {
     .findChefAsync()
     .then(function (chef) {
       renderCooking(order.id, chef);
-      return chef.cookAsync(order, function () {
-        renderCooked(order.id);
-      });
+      return chef.cookAsync(order);
     })
     .then(function () {
+      renderCooked(order.id);
       return servers.findServerAsync();
     })
     .then(function (server) {

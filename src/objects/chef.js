@@ -13,11 +13,10 @@ Chef.prototype.finishCooking = function () {
   this.status = READY;
 };
 
-Chef.prototype.cookAsync = function (order, onCompleted) {
+Chef.prototype.cookAsync = function (order) {
   this.status = COOKING;
   return new Promise(
     function (resolve) {
-      this.onCompleted = onCompleted;
       this.resolve = resolve;
 
       setTimeout(_completeCook.bind(this), order.time);
@@ -27,7 +26,6 @@ Chef.prototype.cookAsync = function (order, onCompleted) {
 
 function _completeCook() {
   this.status = READY;
-  this.onCompleted();
   this.resolve();
 }
 
