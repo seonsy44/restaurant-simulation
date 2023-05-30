@@ -24,7 +24,7 @@ function render() {
     .append(Widget.h3("servingH3", { textContent: "서빙중" }))
     .append(Widget.ul("servingUl"));
 
-  document.body.append(Widget.get("fragment").getEl());
+  Widget.get("fragment").appendToParent(document.body);
 }
 
 render();
