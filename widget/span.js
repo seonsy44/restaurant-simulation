@@ -7,12 +7,12 @@ function _createSpan(id, option) {
   return {
     id: id,
     _append: function (childControl) {
-      childControl.appendToParent(el);
+      childControl.appendToDOM(el);
     },
     _remove: function () {
       el.remove();
     },
-    appendToParent: function (parentEl) {
+    appendToDOM: function (parentEl) {
       parentEl.append(el);
     },
     updateContent: function (content) {
