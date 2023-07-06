@@ -3,10 +3,10 @@ import type { Control } from "./types/Control";
 
 declare var window: {
   Widget: {
-    [key: string]: (id: string, option?: Record<string, any>) => Control;
-    get:(id: string) => Control;
-  }
-}
+    [key: string]: (id: string, option?: Partial<HTMLElement>) => Control<HTMLElement>;
+    get: (id: string) => Control<HTMLElement>;
+  };
+};
 const { Widget } = window;
 
 function render() {
@@ -33,7 +33,7 @@ function render() {
     .append(Widget.h3("servingH3", { textContent: "서빙중" }))
     .append(Widget.ul("servingUl"));
 
-  Widget.get("fragment").appendToDOM(document.body);
+  Widget.get("fragment").appended(document.body);
 }
 
 render();

@@ -4,27 +4,21 @@ export class Control<THtmlElement> {
   private id: string;
   protected el: HTMLElementTagNameMap[keyof HTMLElementTagNameMap] | DocumentFragment;
 
-  constructor(
-    id: string,
-    tagName: keyof HTMLElementTagNameMap | "fragment",
-    option: Partial<THtmlElement>
-  ) {
+  constructor(id: string, tagName: keyof HTMLElementTagNameMap | "fragment", option: Partial<THtmlElement>) {
     if (tagName === "fragment") {
       this.el = document.createDocumentFragment();
       return this;
     }
 
     this.el = document.createElement(tagName);
-
-    Object.entries(option).forEach(([key, value]) => {
-      this.el[key] = value;
-    });
-
+    this.update(option);
     WidgetDict.addControl(id, this);
   }
 
   append(childControl: Control<HTMLElement>) {
     childControl.appended(this.el);
+
+    return this;
   }
 
   appended(parentEl: HTMLElement | DocumentFragment) {
@@ -36,5 +30,11 @@ export class Control<THtmlElement> {
       this.el.remove();
       WidgetDict.delControl(this.id);
     }
+  }
+
+  update(option: Partial<THtmlElement>) {
+    Object.entries(option).forEach(([key, value]) => {
+      this.el[key] = value;
+    });
   }
 }
