@@ -1,4 +1,4 @@
-import { Control } from "./baseControl.js";
+import { Control } from "./control.js";
 import { WidgetDict } from "./widgetDict.js";
 
 declare var window: {

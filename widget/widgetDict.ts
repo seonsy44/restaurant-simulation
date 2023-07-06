@@ -1,4 +1,4 @@
-import { Control } from "./baseControl";
+import { Control } from "./control";
 
 interface IWidgetDict {
   hasControl(id: string): boolean;
