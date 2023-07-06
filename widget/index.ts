@@ -1,9 +1,16 @@
 import { Control } from "./control.js";
 import { WidgetDict } from "./widgetDict.js";
 
+type WidgetType<TElement> = (id: string, option: Partial<TElement>) => Control<TElement>;
 declare var window: {
   Widget: {
-    [key: string]: (id: string, option: Partial<HTMLElement>) => Control<HTMLElement>;
+    fragment: WidgetType<DocumentFragment>;
+    button: WidgetType<HTMLButtonElement>;
+    ul: WidgetType<HTMLUListElement>;
+    li: WidgetType<HTMLLIElement>;
+    h1: WidgetType<HTMLHeadingElement>;
+    h3: WidgetType<HTMLHeadingElement>;
+    span: WidgetType<HTMLSpanElement>;
     get: (id: string) => Control<HTMLElement>;
   };
 };
