@@ -8,12 +8,12 @@ declare var window: {
   };
 };
 
-function createControl<TElement>(tagName: keyof HTMLElementTagNameMap) {
+function createControl<TElement>(tagName: keyof HTMLElementTagNameMap | "fragment") {
   return (id: string, option: Partial<TElement>) => new Control(id, tagName, option);
 }
 
 window.Widget = {
-  //fragment: createFragment,
+  fragment: createControl<DocumentFragment>("fragment"),
   button: createControl<HTMLButtonElement>("button"),
   ul: createControl<HTMLUListElement>("ul"),
   li: createControl<HTMLLIElement>("li"),
