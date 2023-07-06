@@ -1,4 +1,13 @@
-import { handleOrderBtnClick } from "./utils.js";
+import { handleOrderBtnClick } from "./utils";
+import type { Control } from "./types/Control";
+
+declare var window: {
+  Widget: {
+    [key: string]: (id: string, option?: Record<string, any>) => Control;
+    get:(id: string) => Control;
+  }
+}
+const { Widget } = window;
 
 function render() {
   Widget.fragment("fragment")
@@ -6,13 +15,13 @@ function render() {
     .append(
       Widget.button("sundaeBtn", {
         textContent: "순댓국",
-        onClick: handleOrderBtnClick("순댓국", 2000),
+        onclick: handleOrderBtnClick("순댓국", 2000),
       })
     )
     .append(
       Widget.button("haejangBtn", {
         textContent: "해장국",
-        onClick: handleOrderBtnClick("해장국", 3000),
+        onclick: handleOrderBtnClick("해장국", 3000),
       })
     )
     .append(Widget.h3("orderH3", { textContent: "주문" }))
